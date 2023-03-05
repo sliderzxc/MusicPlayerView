@@ -1,4 +1,4 @@
-package com.main.library.view
+package com.sliderzxc.library.view
 
 import android.content.Context
 import android.net.Uri
@@ -44,7 +44,7 @@ class MusicPlayerView @JvmOverloads constructor(
 
     private fun buildMediaSource(uri: Uri): MediaSource {
         return ProgressiveMediaSource.Factory(
-            DefaultDataSourceFactory(context, "custom_user_agent")
+            DefaultDataSourceFactory(context, "custom_user_agent_777")
         ).createMediaSource(MediaItem.fromUri(uri))
     }
 }
