@@ -12,16 +12,18 @@ import com.google.android.exoplayer2.source.ProgressiveMediaSource
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
 import com.main.library.R
 import com.main.library.databinding.MusicPlayerViewBinding
+import com.sliderzxc.library.domain.repository.ManageControl
 
 class MusicPlayerView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0,
     defStyleRes: Int = 0,
-) : ConstraintLayout(context, attrs, defStyleAttr, defStyleRes) {
+) : ConstraintLayout(context, attrs, defStyleAttr, defStyleRes), ManageControl {
 
     private var player: ExoPlayer
     private var binding: MusicPlayerViewBinding
+    private var isPause = false
 
     init {
         val inflater = LayoutInflater.from(context)
@@ -30,16 +32,40 @@ class MusicPlayerView @JvmOverloads constructor(
         player = ExoPlayer.Builder(context).build()
     }
 
-    fun play(mediaUri: Uri) {
+    override fun play(mediaUri: Uri) {
         val mediaSource = buildMediaSource(mediaUri)
         player.addMediaSource(mediaSource)
         player.prepare()
         player.playWhenReady = true
+        isPause = false
+        btnControlClickListener()
     }
 
-    fun stop() {
+    override fun stop() {
         player.stop()
         player.release()
+    }
+
+    override fun continuePlay() {
+        player.play()
+        binding.btnControlMedia.setImageResource(R.drawable.icon_pause)
+        isPause = false
+    }
+
+    override fun pause() {
+        player.pause()
+        binding.btnControlMedia.setImageResource(R.drawable.icon_play)
+        isPause = true
+    }
+
+    private fun btnControlClickListener() {
+        binding.btnControlMedia.setOnClickListener {
+            if (isPause) {
+                continuePlay()
+            } else {
+                pause()
+            }
+        }
     }
 
     private fun buildMediaSource(uri: Uri): MediaSource {

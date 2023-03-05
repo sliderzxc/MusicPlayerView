@@ -15,6 +15,7 @@ import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.PermissionRequestErrorListener
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.main.musicplayerview.app.Application
+import com.main.musicplayerview.data.Constants
 import com.main.musicplayerview.data.entities.AudioFile
 import com.main.musicplayerview.databinding.ActivityMainBinding
 import com.main.musicplayerview.presentation.adapter.AudioFilesAdapter
@@ -31,8 +32,9 @@ class MainActivity : AppCompatActivity() {
 
     private val audioFilesClickListener = object : AudioFilesClickListener {
         override fun click(audioFile: AudioFile) {
-            mainViewModel.setAudioFile(audioFile)
-            startActivity(Intent(applicationContext, MusicActivity::class.java))
+            val intent = Intent(applicationContext, MusicActivity::class.java)
+            intent.putExtra(Constants.KEY_AUDIO_FILE, audioFile)
+            startActivity(intent)
         }
     }
     private val audioFilesAdapter = AudioFilesAdapter(audioFilesClickListener)

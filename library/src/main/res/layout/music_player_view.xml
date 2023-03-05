@@ -6,10 +6,21 @@
     android:layout_height="match_parent">
 
     <LinearLayout
+        android:id="@+id/layoutMenu"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
+        android:layout_marginBottom="32dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"></LinearLayout>
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageView
+            android:id="@+id/btnControlMedia"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/icon_pause" />
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
