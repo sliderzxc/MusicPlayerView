@@ -1,7 +1,7 @@
 package com.main.musicplayerview.domain.repository
 
 import android.content.Context
-import com.main.musicplayerview.data.entities.AudioFile
+import com.sliderzxc.library.data.entities.AudioFile
 
 interface AudioRepository {
 

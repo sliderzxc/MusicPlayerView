@@ -1,14 +1,18 @@
 package com.sliderzxc.library.domain.repository
 
-import android.net.Uri
+import com.sliderzxc.library.data.entities.AudioFile
 
 interface ManageControl {
 
-    fun play(mediaUri: Uri)
+    fun play(audioFile: AudioFile)
 
     fun stop()
 
     fun continuePlay()
 
     fun pause()
+
+    fun skipPlusTenSeconds()
+
+    fun skipMinusTenSeconds()
 }

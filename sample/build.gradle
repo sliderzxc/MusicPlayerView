@@ -2,7 +2,6 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
-    id 'kotlin-parcelize'
 }
 
 android {
@@ -58,8 +57,6 @@ dependencies {
     implementation 'javax.inject:javax.inject:1'
     //Dexter
     implementation 'com.karumi:dexter:6.2.3'
-    //Parcelize
-    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.8.10'
     //MusicPlayerView
     implementation project(path: ':library')
 }

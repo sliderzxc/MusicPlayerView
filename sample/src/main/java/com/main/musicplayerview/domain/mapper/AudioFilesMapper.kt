@@ -1,6 +1,6 @@
 package com.main.musicplayerview.domain.mapper
 
-import com.main.musicplayerview.data.entities.AudioFile
+import com.sliderzxc.library.data.entities.AudioFile
 
 interface AudioFilesMapper {
 

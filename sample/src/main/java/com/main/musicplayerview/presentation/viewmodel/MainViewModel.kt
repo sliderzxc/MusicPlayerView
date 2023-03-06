@@ -1,11 +1,9 @@
 package com.main.musicplayerview.presentation.viewmodel
 
 import android.content.Context
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.main.musicplayerview.data.entities.AudioFile
 import com.main.musicplayerview.domain.repository.AudioRepository
+import com.sliderzxc.library.data.entities.AudioFile
 
 class MainViewModel(
     private val audioRepository: AudioRepository

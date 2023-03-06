@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.main.musicplayerview.R
-import com.main.musicplayerview.data.entities.AudioFile
 import com.main.musicplayerview.databinding.ItemAudioFileBinding
 import com.main.musicplayerview.domain.mapper.AudioFilesMapper
+import com.sliderzxc.library.data.entities.AudioFile
 
 interface AudioFilesClickListener {
     fun click(audioFile: AudioFile)

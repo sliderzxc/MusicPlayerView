@@ -1,4 +1,4 @@
-package com.main.musicplayerview.data.entities
+package com.sliderzxc.library.data.entities
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
@@ -8,5 +8,6 @@ data class AudioFile(
     val id: Long,
     val title: String,
     val artist: String,
-    val path: String
+    val path: String,
+    val duration: Int
 ): Parcelable

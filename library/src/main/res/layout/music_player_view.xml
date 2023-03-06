@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -9,11 +8,27 @@
         android:id="@+id/layoutMenu"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="50dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
+
+        <ImageView
+            android:id="@+id/btnPreviousMusic"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/icon_previous" />
+
+        <ImageView
+            android:id="@+id/btnSkipMinusTenSeconds"
+            android:layout_width="50dp"
+            android:layout_height="60dp"
+            android:layout_marginEnd="15dp"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/icon_skip_minus_10_seconds" />
 
         <ImageView
             android:id="@+id/btnControlMedia"
@@ -21,6 +36,22 @@
             android:layout_height="60dp"
             android:layout_weight="1"
             app:srcCompat="@drawable/icon_pause" />
+
+        <ImageView
+            android:id="@+id/btnSkipPlusTenSeconds"
+            android:layout_width="50dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="15dp"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/icon_skip_plus_10_secons" />
+
+        <ImageView
+            android:id="@+id/btnNextMusic"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="10dp"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/icon_next" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

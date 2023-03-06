@@ -12,6 +12,7 @@ import com.google.android.exoplayer2.source.ProgressiveMediaSource
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
 import com.main.library.R
 import com.main.library.databinding.MusicPlayerViewBinding
+import com.sliderzxc.library.data.entities.AudioFile
 import com.sliderzxc.library.domain.repository.ManageControl
 
 class MusicPlayerView @JvmOverloads constructor(
@@ -30,21 +31,25 @@ class MusicPlayerView @JvmOverloads constructor(
         val view = inflater.inflate(R.layout.music_player_view, this, true)
         binding = MusicPlayerViewBinding.bind(view)
         player = ExoPlayer.Builder(context).build()
+        clickListeners()
     }
 
-    override fun play(mediaUri: Uri) {
-        val mediaSource = buildMediaSource(mediaUri)
+    override fun play(audioFile: AudioFile) {
+        val mediaSource = buildMediaSource(Uri.parse(audioFile.path))
         player.addMediaSource(mediaSource)
         player.prepare()
         player.playWhenReady = true
         isPause = false
-        btnControlClickListener()
     }
 
     override fun stop() {
         player.stop()
         player.release()
     }
+
+    override fun skipPlusTenSeconds() = player.seekTo(player.currentPosition + 10000L)
+
+    override fun skipMinusTenSeconds() = player.seekTo(player.currentPosition - 10000L)
 
     override fun continuePlay() {
         player.play()
@@ -58,6 +63,11 @@ class MusicPlayerView @JvmOverloads constructor(
         isPause = true
     }
 
+    private fun clickListeners() {
+        btnControlClickListener()
+        btnSkipClickListeners()
+    }
+
     private fun btnControlClickListener() {
         binding.btnControlMedia.setOnClickListener {
             if (isPause) {
@@ -66,6 +76,11 @@ class MusicPlayerView @JvmOverloads constructor(
                 pause()
             }
         }
+    }
+
+    private fun btnSkipClickListeners() {
+        binding.btnSkipMinusTenSeconds.setOnClickListener { skipMinusTenSeconds() }
+        binding.btnSkipPlusTenSeconds.setOnClickListener { skipPlusTenSeconds() }
     }
 
     private fun buildMediaSource(uri: Uri): MediaSource {

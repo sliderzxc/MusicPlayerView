@@ -3,25 +3,21 @@ package com.main.musicplayerview.presentation.ui
 import android.Manifest
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.karumi.dexter.Dexter
-import com.karumi.dexter.DexterBuilder
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
-import com.karumi.dexter.listener.DexterError
 import com.karumi.dexter.listener.PermissionRequest
-import com.karumi.dexter.listener.PermissionRequestErrorListener
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.main.musicplayerview.app.Application
 import com.main.musicplayerview.data.Constants
-import com.main.musicplayerview.data.entities.AudioFile
 import com.main.musicplayerview.databinding.ActivityMainBinding
 import com.main.musicplayerview.presentation.adapter.AudioFilesAdapter
 import com.main.musicplayerview.presentation.adapter.AudioFilesClickListener
 import com.main.musicplayerview.presentation.viewmodel.MainViewModel
 import com.main.musicplayerview.presentation.viewmodel.MainViewModelFactory
+import com.sliderzxc.library.data.entities.AudioFile
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
