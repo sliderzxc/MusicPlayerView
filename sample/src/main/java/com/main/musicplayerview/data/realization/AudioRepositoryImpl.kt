@@ -16,7 +16,8 @@ class AudioRepositoryImpl : AudioRepository {
             MediaStore.Audio.Media.TITLE,
             MediaStore.Audio.Media.ARTIST,
             MediaStore.Audio.Media.DATA,
-            MediaStore.Audio.Media.DURATION
+            MediaStore.Audio.Media.DURATION,
+//            MediaStore.Audio.Media.
         )
         val cursor = contentResolver.query(uri, projection, null, null, null)
         cursor?.use {

@@ -22,7 +22,6 @@ class MusicActivity : AppCompatActivity() {
         } else {
             intent.getParcelableExtra(Constants.KEY_AUDIO_FILE)
         }
-        Log.d("MyLog", "audioFile: $audioFile")
         audioFile?.let { binding.musicPlayerView.play(it) }
     }
 

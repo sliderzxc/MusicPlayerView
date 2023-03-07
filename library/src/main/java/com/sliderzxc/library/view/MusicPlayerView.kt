@@ -2,11 +2,16 @@ package com.sliderzxc.library.view
 
 import android.content.Context
 import android.net.Uri
+import android.os.Handler
+import android.os.Looper
 import android.util.AttributeSet
+import android.util.Log
 import android.view.LayoutInflater
+import android.widget.SeekBar
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
+import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.source.MediaSource
 import com.google.android.exoplayer2.source.ProgressiveMediaSource
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
@@ -14,6 +19,7 @@ import com.main.library.R
 import com.main.library.databinding.MusicPlayerViewBinding
 import com.sliderzxc.library.data.entities.AudioFile
 import com.sliderzxc.library.domain.repository.ManageControl
+import kotlin.math.roundToInt
 
 class MusicPlayerView @JvmOverloads constructor(
     context: Context,
@@ -25,6 +31,44 @@ class MusicPlayerView @JvmOverloads constructor(
     private var player: ExoPlayer
     private var binding: MusicPlayerViewBinding
     private var isPause = false
+    private var isPlaying = true
+    private lateinit var audioFile: AudioFile
+    private lateinit var handler: Handler
+
+    private fun initSeekBar(duration: Int) {
+        binding.sbSongProgress.max = duration
+        binding.tvMaxTime.text = formatTime(duration)
+
+        binding.sbSongProgress.setOnSeekBarChangeListener(object: SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                player.seekTo(progress.toLong())
+                binding.tvCurrentTime.text = formatTime(progress)
+            }
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {
+                isPlaying = false
+            }
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {
+                isPlaying = true
+            }
+        })
+    }
+
+    private fun initHandler() {
+        handler = Handler(Looper.getMainLooper())
+        handler.post(object : Runnable {
+            override fun run() {
+                val currentPosition = player.currentPosition.toInt()
+                binding.sbSongProgress.progress = currentPosition
+                binding.tvCurrentTime.text = formatTime(currentPosition)
+                handler.postDelayed(this, 1000)
+            }
+        })
+    }
+    private fun formatTime(millis: Int): String {
+        val seconds = (millis / 1000) % 60
+        val minutes = (millis / (1000 * 60)) % 60
+        return String.format("%02d:%02d", minutes, seconds)
+    }
 
     init {
         val inflater = LayoutInflater.from(context)
@@ -32,14 +76,18 @@ class MusicPlayerView @JvmOverloads constructor(
         binding = MusicPlayerViewBinding.bind(view)
         player = ExoPlayer.Builder(context).build()
         clickListeners()
+        initHandler()
     }
 
     override fun play(audioFile: AudioFile) {
+        Log.d("MyLog", "audioFile: $audioFile")
+        this.audioFile = audioFile
         val mediaSource = buildMediaSource(Uri.parse(audioFile.path))
         player.addMediaSource(mediaSource)
         player.prepare()
         player.playWhenReady = true
         isPause = false
+        initSeekBar(audioFile.duration)
     }
 
     override fun stop() {
