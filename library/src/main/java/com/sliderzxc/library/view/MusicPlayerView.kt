@@ -21,6 +21,12 @@ import com.sliderzxc.library.data.entities.AudioFile
 import com.sliderzxc.library.domain.Init
 import com.sliderzxc.library.domain.ManageControl
 
+data class ViewData(
+    val duration: Int,
+    val title: String,
+    val author: String
+)
+
 class MusicPlayerView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
@@ -40,6 +46,20 @@ class MusicPlayerView @JvmOverloads constructor(
         player = ExoPlayer.Builder(context).build()
         clickListeners()
         initHandler()
+    }
+
+    override fun initView(viewData: ViewData) {
+        initSeekBar(viewData.duration)
+        initTitle(viewData.title)
+        initAuthor(viewData.author)
+    }
+
+    override fun initAuthor(author: String) {
+        binding.tvSongAuthor.text = author
+    }
+
+    override fun initTitle(title: String) {
+        binding.tvSongTitle.text = title
     }
 
     override fun initSeekBar(duration: Int) {
@@ -81,7 +101,7 @@ class MusicPlayerView @JvmOverloads constructor(
         player.playWhenReady = true
         isPause = false
         Glide.with(context).load(audioFile.iconUri).into(binding.ivSongIcon)
-        initSeekBar(audioFile.duration)
+        initView(audioFile.mapToViewData())
     }
 
     override fun stop() {
@@ -107,7 +127,6 @@ class MusicPlayerView @JvmOverloads constructor(
 
     private fun clickListeners() {
         btnControlClickListener()
-        btnSkipClickListeners()
     }
 
     private fun btnControlClickListener() {
@@ -118,11 +137,6 @@ class MusicPlayerView @JvmOverloads constructor(
                 pause()
             }
         }
-    }
-
-    private fun btnSkipClickListeners() {
-        binding.btnSkipMinusTenSeconds.setOnClickListener { skipMinusTenSeconds() }
-        binding.btnSkipPlusTenSeconds.setOnClickListener { skipPlusTenSeconds() }
     }
 
     private fun buildMediaSource(uri: Uri): MediaSource {

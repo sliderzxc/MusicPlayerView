@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:theme="@style/Theme.Material3.Light"
     android:layout_height="match_parent">
 
     <ImageView
@@ -17,26 +18,28 @@
 
     <TextView
         android:id="@+id/tvSongTitle"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
         android:layout_marginTop="10dp"
-        android:fontFamily="monospace"
-        android:text="TDME"
+        android:fontFamily="serif"
         android:textColor="@android:color/black"
-        android:textSize="28sp"
+        android:textSize="25sp"
+        app:layout_constraintEnd_toEndOf="@+id/ivSongIcon"
         app:layout_constraintStart_toStartOf="@+id/ivSongIcon"
-        app:layout_constraintTop_toBottomOf="@+id/ivSongIcon" />
+        app:layout_constraintTop_toBottomOf="@+id/ivSongIcon"
+        tools:text="TDME" />
 
     <TextView
-        android:id="@+id/tvAuthor"
-        android:layout_width="wrap_content"
+        android:id="@+id/tvSongAuthor"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:text="Antutila"
-        android:textSize="18sp"
+        android:fontFamily="sans-serif-medium"
+        android:textSize="17sp"
+        app:layout_constraintEnd_toEndOf="@+id/tvSongTitle"
         app:layout_constraintStart_toStartOf="@+id/tvSongTitle"
-        app:layout_constraintTop_toBottomOf="@+id/tvSongTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/tvSongTitle"
+        tools:text="Antutila" />
 
     <SeekBar
         android:id="@+id/sbSongProgress"
@@ -86,27 +89,11 @@
             app:srcCompat="@drawable/icon_previous" />
 
         <ImageView
-            android:id="@+id/btnSkipMinusTenSeconds"
-            android:layout_width="50dp"
-            android:layout_height="60dp"
-            android:layout_marginEnd="15dp"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/icon_skip_minus_10_seconds" />
-
-        <ImageView
             android:id="@+id/btnControlMedia"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_weight="1"
             app:srcCompat="@drawable/icon_pause" />
-
-        <ImageView
-            android:id="@+id/btnSkipPlusTenSeconds"
-            android:layout_width="50dp"
-            android:layout_height="60dp"
-            android:layout_marginStart="15dp"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/icon_skip_plus_10_secons" />
 
         <ImageView
             android:id="@+id/btnNextMusic"
