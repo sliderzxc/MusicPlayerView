@@ -1,4 +1,4 @@
-package com.sliderzxc.library.domain.repository
+package com.sliderzxc.library.domain
 
 import com.sliderzxc.library.data.entities.AudioFile
 

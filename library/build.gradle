@@ -50,4 +50,6 @@ dependencies {
     implementation 'com.karumi:dexter:6.2.3'
     //SeekBar
     implementation 'com.github.rubensousa:previewseekbar:3.1.0'
+    //Glide
+    implementation 'com.github.bumptech.glide:glide:4.13.2'
 }

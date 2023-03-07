@@ -1,6 +1,10 @@
 package com.main.musicplayerview.data.realization
 
+import android.content.ContentUris
 import android.content.Context
+import android.graphics.ImageDecoder
+import android.net.Uri
+import android.os.Build
 import android.provider.MediaStore
 import com.main.musicplayerview.domain.repository.AudioRepository
 import com.sliderzxc.library.data.entities.AudioFile
@@ -17,7 +21,7 @@ class AudioRepositoryImpl : AudioRepository {
             MediaStore.Audio.Media.ARTIST,
             MediaStore.Audio.Media.DATA,
             MediaStore.Audio.Media.DURATION,
-//            MediaStore.Audio.Media.
+            MediaStore.Audio.Media.ALBUM_ID
         )
         val cursor = contentResolver.query(uri, projection, null, null, null)
         cursor?.use {
@@ -26,6 +30,8 @@ class AudioRepositoryImpl : AudioRepository {
             val artistColumn = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.ARTIST)
             val dataColumn = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DATA)
             val durationColumn = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DURATION)
+            val albumIdColumn = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.ALBUM_ID)
+            val albumArtUri = Uri.parse("content://media/external/audio/albumart")
 
             while (cursor.moveToNext()) {
                 val id = cursor.getLong(idColumn)
@@ -33,8 +39,10 @@ class AudioRepositoryImpl : AudioRepository {
                 val artist = cursor.getString(artistColumn)
                 val path = cursor.getString(dataColumn)
                 val duration = cursor.getInt(durationColumn)
+                val albumId = cursor.getLong(albumIdColumn)
+                val albumArt = ContentUris.withAppendedId(albumArtUri, albumId)
 
-                val audioFile = AudioFile(id, title, artist, path, duration)
+                val audioFile = AudioFile(id, title, artist, path, duration, albumArt)
                 audioFiles.add(audioFile)
             }
         }
