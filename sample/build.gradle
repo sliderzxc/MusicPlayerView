@@ -57,6 +57,8 @@ dependencies {
     implementation 'javax.inject:javax.inject:1'
     //Dexter
     implementation 'com.karumi:dexter:6.2.3'
+    //Glide
+    implementation 'com.github.bumptech.glide:glide:4.13.2'
     //MusicPlayerView
     implementation project(path: ':library')
 }

@@ -30,6 +30,12 @@ class MainActivity : AppCompatActivity() {
         override fun click(audioFile: AudioFile) {
             val intent = Intent(applicationContext, MusicActivity::class.java)
             intent.putExtra(Constants.KEY_AUDIO_FILE, audioFile)
+
+            val list = mainViewModel.getAllAudioFiles(this@MainActivity)
+            val dataList: ArrayList<AudioFile> = ArrayList()
+            list.forEach { dataList.add(it) }
+
+            intent.putParcelableArrayListExtra(Constants.KEY_AUDIO_FILES, dataList)
             startActivity(intent)
         }
     }
@@ -37,12 +43,12 @@ class MainActivity : AppCompatActivity() {
 
     private val multiplePermissionsListener = object : MultiplePermissionsListener {
         override fun onPermissionsChecked(p0: MultiplePermissionsReport?) {
-            audioFilesAdapter.mapAudioFiles(mainViewModel.getAllAudioFiles(applicationContext))
+            audioFilesAdapter.mapAudioFiles(mainViewModel.getAllAudioFiles(this@MainActivity))
         }
 
         override fun onPermissionRationaleShouldBeShown(
             p0: MutableList<PermissionRequest>?,
-            p1: PermissionToken?
+            p1: PermissionToken?,
         ) = requestPermission()
     }
 
@@ -57,7 +63,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun requestPermission() {
-        Dexter.withContext(applicationContext)
+        Dexter.withContext(this)
             .withPermissions(Manifest.permission.READ_EXTERNAL_STORAGE)
             .withListener(multiplePermissionsListener)
             .check()

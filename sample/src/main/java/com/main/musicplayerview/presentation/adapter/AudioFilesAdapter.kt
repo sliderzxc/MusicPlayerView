@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.bumptech.glide.Glide
 import com.main.musicplayerview.R
 import com.main.musicplayerview.databinding.ItemAudioFileBinding
 import com.main.musicplayerview.domain.mapper.AudioFilesMapper
@@ -30,6 +31,7 @@ class AudioFilesAdapter(
             binding.tvTitle.text = audioFilesMapper.mapTextLength(20, audioFile.title)
             binding.tvArtist.text = audioFilesMapper.mapTextLength(20, audioFile.artist)
             binding.itemLayout.setOnClickListener { audioFilesClickListener.click(audioFile) }
+            Glide.with(itemView).load(audioFile.iconUri).into(binding.ivIcon)
         }
     }
 

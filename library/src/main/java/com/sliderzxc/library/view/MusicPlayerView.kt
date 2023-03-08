@@ -21,12 +21,6 @@ import com.sliderzxc.library.data.entities.AudioFile
 import com.sliderzxc.library.domain.Init
 import com.sliderzxc.library.domain.ManageControl
 
-data class ViewData(
-    val duration: Int,
-    val title: String,
-    val author: String
-)
-
 class MusicPlayerView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
@@ -38,6 +32,7 @@ class MusicPlayerView @JvmOverloads constructor(
     private var binding: MusicPlayerViewBinding
     private var isPause = false
     private lateinit var handler: Handler
+    private val audioFiles = mutableListOf<AudioFile>()
 
     init {
         val inflater = LayoutInflater.from(context)
@@ -93,10 +88,15 @@ class MusicPlayerView @JvmOverloads constructor(
         return String.format("%02d:%02d", minutes, seconds)
     }
 
-    override fun play(audioFile: AudioFile) {
-        Log.d("MyLog", "audioFile: $audioFile")
+    override fun play(audioFile: AudioFile, allAudioFiles: List<AudioFile>) {
+        audioFiles.clear()
+        audioFiles.addAll(allAudioFiles)
+        audioFiles.forEach {
+            Log.d("MyLog", "id: ${it.id}")
+        }
         val mediaSource = buildMediaSource(Uri.parse(audioFile.path))
         player.addMediaSource(mediaSource)
+        //player.clearMediaItems()
         player.prepare()
         player.playWhenReady = true
         isPause = false
@@ -145,3 +145,9 @@ class MusicPlayerView @JvmOverloads constructor(
         ).createMediaSource(MediaItem.fromUri(uri))
     }
 }
+
+data class ViewData(
+    val duration: Int,
+    val title: String,
+    val author: String
+)

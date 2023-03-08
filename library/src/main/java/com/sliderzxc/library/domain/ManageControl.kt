@@ -4,7 +4,7 @@ import com.sliderzxc.library.data.entities.AudioFile
 
 interface ManageControl {
 
-    fun play(audioFile: AudioFile)
+    fun play(audioFile: AudioFile, allAudioFiles: List<AudioFile>)
 
     fun stop()
 

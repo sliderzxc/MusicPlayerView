@@ -2,7 +2,6 @@ package com.main.musicplayerview.presentation.ui
 
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.main.musicplayerview.app.Application
 import com.main.musicplayerview.data.Constants
@@ -17,12 +16,14 @@ class MusicActivity : AppCompatActivity() {
         setContentView(binding.root)
         (applicationContext as Application).mainComponent.inject(this)
 
+        val audioFiles = intent.getParcelableArrayListExtra<AudioFile>(Constants.KEY_AUDIO_FILES)
+
         val audioFile = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             intent.getParcelableExtra(Constants.KEY_AUDIO_FILE, AudioFile::class.java)
         } else {
             intent.getParcelableExtra(Constants.KEY_AUDIO_FILE)
         }
-        audioFile?.let { binding.musicPlayerView.play(it) }
+        audioFile?.let { binding.musicPlayerView.play(it, audioFiles?.toList() ?: emptyList()) }
     }
 
     override fun onDestroy() {
